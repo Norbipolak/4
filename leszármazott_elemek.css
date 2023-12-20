@@ -1,0 +1,57 @@
+body {
+    min-height: 5000px;
+}
+.osszes-leszarmazott li {
+    border: 1px solid black;
+    background-color: red;
+}
+/*megkapta a tulajdonságokat a li és az li li, tehát a közvetlen és a közvetett leszármazott is*/
+.kozvetlen-leszarmazott > li {
+    border: 1px solid black;
+    background-color: red;
+}
+/*
+>-jel nagyon fontos, azt jelzi, hogy amit eírunk az csak a közvetlen leszármazotra lesz érvényes
+megkapta mindkettő a piros színt, de csak azért mert az egyik a másikban van benne
+a második (közvettet elem) viszont már nem kapta meg a bordert
+*/
+.kozvetlen-testverelem + li {
+    background-color: lightblue;
+}
+/*
++ jellel kijelöltem a következő li elemet és annak a háttérszíne világoskék lett
+és 1,3,4 li-nek pedig nem
+*/
+.osszes-testverelem ~ {
+    background-color: lightgreen;
+}
+/*~ (alt gr 1) az összes testvérelem megkapja amit ide írtunk a listából*/
+p::first-letter { /*csak az első betűre vonatkoznak ezek a szabályok*/
+    display: block;
+    float: left;
+    font-size: 25px;
+    color: red;
+}
+/*
+With display: block; applied, the anchor element will display as a block,
+taking up the full width available by default and allowing you to set properties like width,
+height, margins, padding, etc., as you would for other block-level elements.
+
+Using display: block; is useful when you want an element to behave as a block-level element 
+(taking full width, accepting width and height properties, etc.) regardless of its default behavior. 
+*/
+p::first-line {  /*csak az első sorra vonatkoznak ezek a szabályok*/
+    color: green;
+}
+.before::before {/*beteszi  elé, amit itt csináltunk*/
+    content: "Ezt a szöveget adtam hozzá!";/*itt eléírja ezt a szöveget*/
+    content: url("https://www.google.com/search?sca_esv=592607226&rlz=1C1KNTJ_huHU1072HU1072&sxsrf=AM9HkKmr77QF2eDngljKPrabMKUUtKe6ig:1703102138794&q=mario+mushroom&tbm=isch&source=lnms&sa=X&sqi=2&ved=2ahUKEwj8pf7v5Z6DAxXWGhAIHeDfASUQ0pQJegQIChAB&biw=1536&bih=695&dpr=1.25#imgrc=WpZYZ0dYDTtJkM");
+} /*megyitom a képet új lapon és kimásolom az url-jét, content -> fontos még nem vettük*/
+/*
+beteszi a képet az elé amit csináltunk a div class beforeban
+nem lehet meghatározni a kép szélességét és magasságát
+*/
+.after::after {
+    content: url("https://www.google.com/search?sca_esv=592607226&rlz=1C1KNTJ_huHU1072HU1072&sxsrf=AM9HkKmr77QF2eDngljKPrabMKUUtKe6ig:1703102138794&q=mario+mushroom&tbm=isch&source=lnms&sa=X&sqi=2&ved=2ahUKEwj8pf7v5Z6DAxXWGhAIHeDfASUQ0pQJegQIChAB&biw=1536&bih=695&dpr=1.25#imgrc=WpZYZ0dYDTtJkM");
+}
+/*ugyanazt csinálja mint a before, csak utána teszi be a képet, vagy amit itt csinálunk*/

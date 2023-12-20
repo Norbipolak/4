@@ -1,0 +1,134 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+/*csinálunk egy navigációs menüt*/
+nav {
+    height: 80px; /*így meglenik a nav, egyébként alapból nem látszik, amugy igy 100% széles mint a div*/
+    background-color: #123456; 
+}
+/*így még egymás alatt vannak a menüpontok és nincsenek is középen, erre csináljuk azt, hogy ->*/
+nav ul {
+    display: flex;
+    justify-content: center;
+    /*így megjelent az ul a nav-ban (mint egy sor) de még nem veszi fel a nav magasságát*/
+}
+nav li {
+    list-style: none; /*levesszük a pöttyöket a li (listáról) vagy list-style-type*/
+    /*de még nem középen vannak vertikálisan hanem felül, ezért kell megadni itt 
+    egy akkora height-ot és line-height-ot mint a navnak van és akkor igy bekerülnek középre ezek az elemek
+    */
+    height: 80px; /*ha az li-nek megadjuk ezt a magasságot akkor az ul is automatikusan megkapja*/
+    line-height: 80px;
+    text-align: center;
+}
+nav li:hover {
+    /*ha feléje visszük a kurzort, akkor kijelöli*/
+    background-color: #205a94;
+}
+nav a {
+    /*a nav-ban lévő a-tageknek meg szeretnénk változtatni a színét fehérre*/
+    /*akkor is müködik ha csak a-t írnánk, de akkor gondolom az összes a-tag-re érvényes lenne, nem csak arra, ami a nav-ban található*/
+    color: white; 
+    padding: 15px; /*tavolabb viszi egymástól a menüpontokat*/
+    text-decoration: none; /*megszünteti az aláhúzást*/
+}
+.selected-menu {
+    /*
+    amelyik li-nek megadjuk html-ben ezt az osztályt az kap valamilyen tulajdonságot
+    itt azt szeretnénk, hogy az első menünek más legyen a background-color-ja mint a többinek 
+    de amikor pl. átmegyünk egy másik menüpontra, és rákattintunk és megjelenítjük a tartalmát (másik html)
+    akkor ezek a nav menüpontok ugy is fognak látszodni, csak az kapja meg ezt a selected class-t, amelyik menüben épp vagyunk
+    */
+    background-color: #351177;
+}
+/*
+Hogyan csinálunk legördülő menüt?
+Mondjuk a szolgáltatások menüpontban, ennek a li tag-ébe belerakunk egy ujabb ul taget és abba li taget, abba meg a tag-et
+ugyanugy mint a nav-ba a menüpontok készítése, de itt fontos, hogy az li tag-be rakjuk az uj ul-t ahol van ég a fő menünek az 
+a tag-e
+Megcsináltuk html-ben (snippet), így néz ki böngészőben miért?-> 
+Az li-ben lévő ul-ek, mivel, hogy az ul-nek display:flex, justify-content:center tulajdonságai vannak, ezt a stiluskéeszletet kapta 
+ezért egymás mellett jelennek meg a menöpontok 
+nav-on belüli li-knek nincsen háttérszíne, ezért nem látszik, csak akkor ha feléviszem egy kurzort, mert van egy hover-ja 
+amitől kékké változik, azért látszik csak akkor ha feléviszem a kurzort
+*/
+nav ul ul{
+    display: block; 
+    /*
+    ne menjenek be egymás mellé, hanem egymás alatt legyenek
+    így már egymás alatt lettek a menöpontok
+    */
+    background-color: #123456;
+    /*
+    Kell neki adni egy háttérszínt, ugyanazt, mint a menünek és akkor mind 3 almenüpont megjelenik, de folyamatosan ott 
+    lesznek 
+    */
+    position: absolute; 
+    /*az almenük szélesebbek lettek, mint a felső menüpontok (hosszabb szöveg lett beleírva) és
+    automatikusan kitoltálták a főmenü szélességét akkorára, mint almenüké, de ha itt beírjuk, hogy postion:absolute, 
+    akkor nem lesz hatással a főmenü szélességére és olyan széles marad, mint a másik kettő fömenü
+
+    When an element is set to position: absolute;,
+    it is removed from the normal document flow,
+    meaning it doesn't affect the layout of other elements around it.
+
+    Once an element is set to position: absolute;, 
+    you can use top, bottom, left, and right properties to specify its position in relation to its nearest positioned ancestor
+
+    position: absolute; is commonly used for elements that need to be precisely positioned in specific locations on a webpage,
+    such as tooltips, pop-up boxes, or certain UI elements.
+    */
+    display: none;
+    /*
+    alapból mindig ott van a böngészőn és azt szeretnénk, hogy alapból ne legyen ott -> display: none
+    de akkor, hogy fog látszodni -> amikor a li felé visszük a kurzort, akkor az li gyerekelemének, ami egy ul 
+    meg kellene, hogy jelenjen
+    */
+}
+nav li:hover > ul { /*fontos!!!!!!!!!!!!!!!!! -> csak a közvetlen gyermekre vonatkozzon ez a szabály*/
+    display:block;
+    /*
+    amikor az li felé viszem a kurzort, akkor jelenjen meg az li-ben lévő ul, méghozzá display:block formában
+    */
+}
+nav li li { /*azért az li-n belüli li, mert ez már a második szint*/
+    height: 30px;
+    /*
+    túl nagyok az almenük, ide nem fog kelleni a 80px-es magasság, felülre csak azért kelett, hogy felvegye a nav-nak a magasságát
+    ezért megadunk neki egy kisebb height-ot és line.heigth is ugyanakkora kell, hogy legyen, hogy a szöveg ami benne van középen 
+    legyen
+    */
+    line-height: 30px;
+    /*
+    fontos, hogy vertikálisan és horizontálisan is középre kerüljön minden
+    vertikálisan line-height ->ugyanakkora, mint a height, horizontálisan pedig
+    text-align:center; -> ezt már megadtuk a nav li-nél is, ami a nav li li-re is hatással van
+    */
+    position: relative;
+    min-width: 150px;
+}
+/*ez eddig jó igy, de mi van, ha az egyik almenünek is vannak még al-almenüi?
+a nav li:hover ul megjeleniti a menüpont almenüit ha felé megyünk(kihozza az ul-eket), de az baj, ha az almenünek is vannak almenüi,
+akkor azokat is megjeleniti(megjeleniti gyerekelemnek a gyerekelemeit is), azokat meg csak akkor szeretnénk látni, 
+ha az a bizonyos almenü felett vagyunk, amiben vannak az al-almenük ->
+nav li:hover > ul -> csak a közvetlen gyermekre vonatkozzon ez a szabály
+*/
+nav ul ul ul { /*azért mert az al-almenük az almenü alatt jelennek meg, azt szeretnénk, hogy jobbra*/
+    left:100%; /*azt csinálta, hogy kitolta jobbra az almenütől az al-almenüt */
+    top:0;
+    /*
+    viszont felfelé megy a jobboldalt lenyíló al-almenü, azért mert, ha azt modjuk, hogy top:0; akkor a legközelebbi
+    olyan elemhez fogja viszonyítani magát, ami nem static, ami ez az ul, ezért a top:0; a főmenü alatt van, 
+    annak az ul-éhez képest fogja meghatározni önmagát 
+    -> 
+    ezért nav li li{
+        position: relative;-nak kell lennie 
+    }
+    */
+}
+/*
+Csináltunk a második almenüpontban lévő dolognak(Webshop készítés) is két al-almenüt és túl hosszúak
+nem fér ki a szöveg, ami beléjük van írva -> ezért a nav li li kapott -> min-width: 150px;
+*/

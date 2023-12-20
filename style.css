@@ -1,0 +1,224 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Open+Sans&display=swap');
+
+@import "init.css";
+@import "colors.css";
+@import "nav.css";
+@import "style.css";
+
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+h1 h2 h3 h4 h5 h6 {
+    margin: 10px 0;
+    font-family: 'Montserrat', sans-serif;
+}
+p {
+    margin: 10px 0;
+}
+h1 {
+    color: var(--primary);
+}
+h2 {
+    color: var(--primary-lighter);
+}
+h3 {
+    color: var(--secondary);
+}
+h4 {
+    color: var(--dark-mid-grey);
+}
+h5 {
+    color: var(--mid-grey);
+}
+.container {
+    width: 1080px;
+    padding: 15px;
+    text-align: justify;
+    margin: auto; /*középre teszi a containert a böngészőn -> width*/
+}
+/*
+text-align: justify; to a block of text, the browser will adjust the spacing between words and characters to ensure 
+that both the left and right edges of the text align evenly within the specified container width.
+*/
+.service-line {
+    padding:15px 0;
+    background-color: var(--primary);
+    overflow:hidden
+}
+/*
+When you use var(--primary) as the value for background-color, 
+it means that the background color will be determined by the value of the CSS variable --primary. 
+CSS variables allow you to define values that can be reused throughout your CSS code.
+*/
+.service {
+    width: 330px;
+    text-align: center;
+    background-color: white;
+    padding: 15px;
+    float: left;
+    margin: 10px; /*hogy elkülönüljenek a 3 db service class box egymástól, amiben van egy H3 és divben a img src..*/
+    border-radius: 5px;/*lekerekítjük a téglalapok szélét*/
+}
+.service-img img {
+    width: 70%;
+}
+/*
+.service-img img: 
+This is a CSS selector that selects img elements that are descendants of elements with the class .service-img. 
+This rule will affect all img elements that are nested within elements having the class .service-img.
+
+width: 70%;: 
+This property sets the width of the selected img elements to 70% of their containing element's width. 
+By using a percentage value, the width of the img elements will be a percentage of the width of their parent container (.service-img).
+->
+The img element inside an element with the class .service-img will have its width set to 70% of the width of its parent .service-img container.
+
+Adjusting the width: 70%; 
+property allows you to control the size of the images within the .service-img containers across your webpage or application.
+*/
+.box { /*amit csináltunk a kapcsolat.html main-jében*/
+    padding: 15px;
+    background-color: var(--v-light-grey);
+    border: 1px solid var(--light-grey);
+    width: 46%; 
+    float: left; /*a következő elem be fog kerülni tőle jobbra, ahelyett, hogy alatta lenne*/
+    margin: 15px; /*de igy már a width 50% nem lesz jó és leugrik egy sorral lejjebb ezért átírjuk a width: 50-et kisebbre*/
+    text-align: center; /*hogy a szöveg, ami benne van ebben a boxban középre helyezödjön*/
+    min-height: 75vh;/*hogy, ugyanolyan nagy legyen a két box, mert a tartalom miatt az egyik nagyobb volt mint a másik*/
+}
+/*
+Most van két divünk class box-val, azt szeretnénk, hogy ez a két box bekerüljön egymás mellé 
+            <div class="box">
+                <h2>Kapcsolati adatok</h2>
+                <h3>cégjegyzékszám: 01-09-1231645</h3>
+                <h3>adószám: 12345678-2-45</h3>
+                <h3>székhely:1111 Bp. Cég utca 6</h3>
+            </div>
+            <div class="box"></div>
+
+második még üres -> <div class="box"></div> 
+*/
+.clear {
+    height: 20px;
+    clear: both; /*megszöünteti a float tulajdonságot*/
+}
+/*
+az volt itt a probléma, hogy a float left-nél nem csak a közvetlen mellette lévő dolgot rakja be jobbra 
+hanem az összes többit, és az alatti lévő footert is berakta jobbra a két box mellé, ezért csináltuk ezt 
+a .clear-t clear: both; -val
+majd a main és a footer közé csinálunk egy divet-class clear-vel hogy már ne legyen utána float: left
+*/
+/*
+google térkép berakása
+1. rákeresünk valamilyen címre 
+2. rámegyünk, hogy megosztás (útvonalterv, mentés stb mellett)
+3. térkép beágyazása -> ott találunk egy olyat, hogy html másolása, azt kimásoljuk
+4. berakjuk a másolt linket az első div class box legaljára 
+5. ez a link (iframe) alapból width:600px -> átírjuk 500px-re és a width-jét pedig 100%-ra -> inkább adtunk egy class mapot 
+az iframe-nek és ott megcsináljuk a width-et, height-ot, stb.  
+*/
+.map {
+    width: 100%;
+    height: 450px;
+    border: 1px solid var(--mid-grey); 
+    /*
+    fontos, hogy azok a tulajdonságok, amik alapból meg vannak adva link-ben style=.. azt kitöröljük 
+    mert a style felül fogja írni azokat a dolgokat amit csináltunk és ott is meg van
+    */
+
+}
+
+/*
+másik .box div-be (dobozba) csinálunk egy kapcsolati űrlapot
+csinálunk benne h3-as dolgokat pl. név, telefonszám, email, stb. amelyeknek lesz egy input mezője, 
+ahova, majd a felhasználó be tudja írni ezeket az adatokat 
+textarea - többsoros beviteli mező, olyan mint az input csak nagyobb - böngészőben lehet állítani a nagyságát
+
+inputokat létrehozunk egy input nevezetű class-t
+*/
+.input {
+    padding: 8px; /*nagyobb lesz az input mező és így könnyebben bele lehet írni*/
+    /*
+    amikor belekattinunk megjelenik egy fekete keret és nem szeretnénk, hogy ez ott legyen
+    van egy olyan pseudo osztály, hogy focus, ez akkor lép érvénybe amikor fokuszba helyeződik valami 
+    pl. belekattintunk az input mezőbe
+    */
+    /*ha szeretnénk, hogy mégis látszana valami, amikor belekattintunk 
+    itt az input-ba csinálunk egy border-t és a input:focus.ban is egy kicsit másmilyet(pl. másik szín)
+    és alapból lesz egy border-je a mezőnek amit itt csinálunk, de ha belekattintunk a border meg fog olyanra változni
+    amit csinálunk a input:focus-ban
+    */
+    border: 2px solid var(--mid-grey);
+    /*
+    a box classunknak megadtunk egy text-align-centert ami nem csak a szöveget, hanem az input mezőket is 
+    behelyezi középre, ha ezt kitöröljük onnan, akkor minden automatikusan balra helyeződik
+    
+    ennek mondhatnánk, hogy margin: auto -> ami középre helyez, de nem fog müködni, mert az csak display: blocknál müködik ->
+    */
+    display: block;
+    margin: 15px auto;
+    /*így már oké és még csináltunk egy kis távolságot alulra és felülre is a 15px-vel
+    középre mentek és még hogy szélesebbek legyenek ->
+    */
+    width: 90%;
+    border-radius: 5px;
+}
+.input:focus {
+    outline: 0; /*amikor belekattintunk az input mezőbe, nem jelenik meg az a keret*/
+    border: 2px solid var(--primary-lighter);/*amikor belekattintunk erre a színre fog megváltozni a bordere a mezőnek*/
+}
+.btn { /*gomb formázása*/
+    border: 1px solid var(--primary-darker);
+    background-color: var(--primary-lighter);
+    color: white;
+    padding: 8px; /*adunk neki egy kis paddinget, hogy nagyobb legyen a gomb*/
+    border-radius: 5px;/*lekerekítése a gombnak, hogy ne olyan szögletes legyen*/
+}
+.btn:active { /*ha rányomunk, akkor megváltozik a színe*/
+    border: 1px solid var(--secondary-darker);
+    background-color: var(--secondary-lighter);
+}
+.btn:hover {
+    cursor: pointer;
+}
+textarea {
+    min-height: 180px; /*hogy nagyobb legyen és lehessen bele írni*/
+    min-width: 100%; /*ez felveszi a box , amiben benne van 100%-os szélességét, kivéve, ha adtunk a box-nak paddinget akkor, 100%-padding*/
+    max-width: 100%;
+}
+footer {
+    background-color: var(--dark-grey);
+    color: white;
+    display: flex;
+    justify-content: center;
+}
+/*
+display: flex;: This property is used to create a flex container.
+When applied to an element, it turns the element into a flex container, enabling you to use flexbox properties for layout.
+->
+justify-content: center; aligns the child elements horizontally at the center within the flex container.
+
+This setup results in footer-content being horizontally centered within the .flex-container. 
+Adjusting the content or number of flex items will still keep them centered due to the justify-content: center; property
+*/
+.footer-content {
+    padding: 15px;
+}
+.footer-content h3 {
+    text-align: center;
+}
+.bg-v-light-grey { /*ha bármilyen elemnek meg szeretnénk adni ezt a háttéerszínt, akkor csak megadjuk attributomként neki ezt a classt htmlben*/
+    background-color: var(--v-light-grey);
+}
+
+/*ha mudnjuk az inputnak meg a btn-nek vannak közös tulajdonságai akkor azokat megadhatjuk -> */
+.input, .bnt {
+    padding: 8px; 
+    border-radius: 5px;/
+}
+/*
+és akkor ezeket a tulajdonságokat, pedig kitöröljük a külön .input és a .btn-ből
+így is ugyanugy megkapja ezeket a tulajdonságokat, csak kevesebbet írtunk 
+*/
+
+/*legördülő menü készítése a nav*/
